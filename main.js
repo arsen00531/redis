@@ -12,7 +12,7 @@ const connection = new pg.Pool({
 
 const client = createClient({
     host: 'red-clh3lu58td7s73bm67ag',
-    port: 6379
+    port: 6379,
 });
 
 client.on("connect", () => console.log(`connected ${client.connected}`));
