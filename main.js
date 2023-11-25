@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express")
 const pg = require("pg")
 const { createClient } = require("redis")
@@ -5,11 +6,8 @@ const responseTime = require("response-time")
 const { promisify } = require("util")
 
 const connection = new pg.Pool({
-    host: 'localhost',
-    user: 'postgres',
-    password: '123451Ra',
-    port: 5432,
-    database: 'chat'
+    connectionString: process.env.DB_URL || process.env.LOCAL_DB_URL,
+    ssl: process.env.DB_URL ? true : false
 })
 
 const client = createClient({
@@ -25,6 +23,7 @@ client.on("error", (err) => console.log(err));
 const GET_ASYNC = promisify(client.get).bind(client)
 const SET_ASYNC = promisify(client.set).bind(client)
 
+const PORT = process.env.PORT || 3000
 const app = express()
 app.use(responseTime())
 
@@ -48,4 +47,4 @@ app.get('/', async (req, res) => {
     }
 })
 
-app.listen(3000, () => console.log('WORK'))
+app.listen(PORT, () => console.log('WORK'))
