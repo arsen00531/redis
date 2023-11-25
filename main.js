@@ -11,7 +11,7 @@ const connection = new pg.Pool({
 })
 
 const client = createClient({
-    host: '127.0.0.1',
+    host: 'red-clh3lu58td7s73bm67ag',
     port: 6379
 });
 
